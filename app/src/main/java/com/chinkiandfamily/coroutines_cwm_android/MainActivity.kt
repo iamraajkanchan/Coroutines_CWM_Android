@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             resetJob()
         } else {
             binding?.btnStartJob?.text = "Cancel Job #1"
-            lifecycleScope.launch(Dispatchers.IO + job) {
+            CoroutineScope(Dispatchers.IO + job).launch {
                 println("Coroutine $this is activated with job: $job")
                 for (i in PROGRESS_START..PROGRESS_MAX) {
                     delay((JOB_TIME / PROGRESS_MAX).toLong())
