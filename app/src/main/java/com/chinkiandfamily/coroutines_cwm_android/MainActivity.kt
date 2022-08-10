@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             resetJob()
         } else {
             binding?.btnStartJob?.text = "Cancel Job #1"
-            lifecycleScope.launch(Dispatchers.IO + job) {
+            CoroutineScope(Dispatchers.IO + job).launch {
                 println("Coroutine $this is activated with job: $job")
                 for (i in PROGRESS_START..PROGRESS_MAX) {
                     delay((JOB_TIME / PROGRESS_MAX).toLong())
@@ -76,16 +76,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateJobCompleteText(text: String) {
-        lifecycleScope.launch(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.Main).launch {
             binding?.tvCompleteText?.text = text
         }
     }
 
     private fun showToast(text: String) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
-            }
+        CoroutineScope(Dispatchers.Main).launch {
+            Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
         }
     }
 
