@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         binding?.btnStartJob?.setOnClickListener {
-            if (!::job.isInitialized) {
+            if (!this::job.isInitialized) {
                 initJob()
             }
             binding?.progressBarJob?.startJobCancel(job)
