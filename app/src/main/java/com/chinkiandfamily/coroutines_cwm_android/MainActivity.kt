@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding?.btnStartJob?.setOnClickListener {
             if (!::job.isInitialized) {
                 initJob()
-                binding?.progressBarJob?.startJobCancel(job)
             }
+            binding?.progressBarJob?.startJobCancel(job)
         }
     }
 
@@ -75,14 +75,16 @@ class MainActivity : AppCompatActivity() {
         initJob()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun updateJobCompleteText(text: String) {
-        CoroutineScope(Dispatchers.Main).launch {
+        GlobalScope.launch(Dispatchers.Main) {
             binding?.tvCompleteText?.text = text
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun showToast(text: String) {
-        CoroutineScope(Dispatchers.Main).launch {
+        GlobalScope.launch(Dispatchers.Main) {
             Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
         }
     }
