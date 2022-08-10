@@ -75,17 +75,17 @@ class MainActivity : AppCompatActivity() {
         initJob()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun updateJobCompleteText(text: String) {
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             binding?.tvCompleteText?.text = text
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     private fun showToast(text: String) {
-        GlobalScope.launch(Dispatchers.Main) {
-            Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
