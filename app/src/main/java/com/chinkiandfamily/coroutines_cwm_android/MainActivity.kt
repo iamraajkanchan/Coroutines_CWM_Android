@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding?.btnStartJob?.setOnClickListener {
             if (!::job.isInitialized) {
                 initJob()
-                binding?.progressBarJob?.startJobCancel(job)
             }
+            binding?.progressBarJob?.startJobCancel(job)
         }
     }
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     private fun showToast(text: String) {
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@MainActivity, text, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
             }
         }
     }
